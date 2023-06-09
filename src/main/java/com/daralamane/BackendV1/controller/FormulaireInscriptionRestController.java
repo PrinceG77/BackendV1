@@ -1,6 +1,7 @@
 package com.daralamane.BackendV1.controller;
 
 
+import com.daralamane.BackendV1.entity.ApiResponse;
 import com.daralamane.BackendV1.entity.FormulaireInscription;
 import com.daralamane.BackendV1.service.FormulaireInscriptionService;
 import org.springframework.http.HttpHeaders;
@@ -68,10 +69,12 @@ public class FormulaireInscriptionRestController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> saveForm(@RequestBody FormulaireInscription formulaireInscription) {
-        String message = formulaireInscriptionService.save(formulaireInscription);
-        return ResponseEntity.ok(message);
+    public ResponseEntity<ApiResponse> saveForm(@RequestBody FormulaireInscription formulaireInscription) {
+        formulaireInscriptionService.save(formulaireInscription);
+        ApiResponse response = new ApiResponse("Form added successfully!");
+        return ResponseEntity.ok(response);
     }
+
 
     @GetMapping("/export-excel")
     @PreAuthorize("hasAnyAuthority('SECRETAIRE', 'DIRECTEUR')")
