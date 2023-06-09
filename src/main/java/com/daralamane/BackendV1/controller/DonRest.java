@@ -1,9 +1,11 @@
 package com.daralamane.BackendV1.controller;
 
 
+import com.daralamane.BackendV1.entity.ApiResponse;
 import com.daralamane.BackendV1.entity.Don;
 import com.daralamane.BackendV1.service.DonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,8 +39,10 @@ public class DonRest {
     }
 
     @PostMapping("/add-donation")
-    public String save(Don don) {
-        return donService.save(don);
+    public ResponseEntity<ApiResponse> save(Don don) {
+        donService.save(don);
+        ApiResponse response = new ApiResponse("Don added successfully!");
+        return ResponseEntity.ok(response);
     }
     @PostMapping("/update-donation")
     public Don update(Don don) {
